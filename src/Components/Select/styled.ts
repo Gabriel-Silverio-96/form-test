@@ -26,6 +26,11 @@ export const SelectGroup = styled.div`
             border: 3px solid ${Variables.colorPrimary};
             outline: ${Variables.colorPrimary};
         }
+
+        &:disabled {
+            background-color: ${Variables.neutraThird};
+            cursor: not-allowed;
+        }
     }
 
     & > span {

@@ -1,9 +1,9 @@
 import { render } from "@testing-library/react";
-import Select from 'Components/Select';
+import { SelectState } from 'Components/Select';
 
 test('should show select render', () => {
-    const {container} = render(<Select />);
+    const { container } = render(<SelectState label='test' name='test' option={[{}]} />);
     const select = container.querySelector('select');
-    
+
     expect(select).toBeInTheDocument();
 })
