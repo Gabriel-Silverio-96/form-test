@@ -7,13 +7,15 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     option: Array<object>;
     isState?: string;
     onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    loading?: boolean;
 }
 
-const SelectState: React.FC<SelectProps> = ({ label, name, option, onChange }) => {
+const SelectState: React.FC<SelectProps> = ({ label, name, option, onChange, loading }) => {
     return (
         <SelectGroup>
             <label htmlFor={label}>{label}</label>
             <select name={name} onChange={onChange}>
+                {loading && <option>Loading...</option>}
                 {option.map((option: any) => {
                     return <option key={option.id} value={option.sigla}>{option.sigla}</option>
                 })}
@@ -22,11 +24,12 @@ const SelectState: React.FC<SelectProps> = ({ label, name, option, onChange }) =
     );
 }
 
-const SelectCity: React.FC<SelectProps> = ({ label, name, option, isState, onChange }) => {
+const SelectCity: React.FC<SelectProps> = ({ label, name, option, isState, onChange, loading }) => {
     return (
         <SelectGroup>
             <label htmlFor={label}>{label}</label>
             <select name={name} onChange={onChange} disabled={isState === '' ? true : false}>
+                {loading && <option>Loading...</option>}
                 {option.map((option: any) => {
                     return <option key={option.id} value={option.nome}>{option.nome}</option>
                 })}

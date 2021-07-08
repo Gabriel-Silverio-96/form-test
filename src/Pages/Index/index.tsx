@@ -36,6 +36,8 @@ interface UserDataProps {
 }
 
 const Index: React.FC = () => {
+    const [isLoadingStates, setIsLoadingStates] = useState<boolean>(true);
+    const [isLoadingCities, setIsLoadingCities] = useState<boolean>(false);
     const [cities, setCities] = useState<CityProps[]>([]);
     const [states, setStates] = useState<StatesProps[]>([]);
 
@@ -59,10 +61,12 @@ const Index: React.FC = () => {
 
     useEffect(() => {
         const request = async () => {
+            setIsLoadingStates(true)
             try {
                 const { data, status } = await api.get('localidades/estados');
                 if (status === 200) {
                     setStates(data)
+                    setIsLoadingStates(false)
                 }
             } catch (error) {
                 console.error("Message error: " + error);
@@ -74,10 +78,12 @@ const Index: React.FC = () => {
     useEffect(() => {
         if (userData.state !== '') {
             const request = async () => {
+                setIsLoadingCities(true)
                 try {
                     const { data, status } = await api.get(`localidades/estados/${userData.state}/municipios`);
                     if (status === 200) {
                         setCities(data)
+                        setIsLoadingCities(false)
                     }
                 } catch (error) {
                     console.error("Message error: " + error);
@@ -90,7 +96,7 @@ const Index: React.FC = () => {
     return (
         <ContainerForm>
             <div>
-                <h1>Register Now</h1>                
+                <h1>Register Now</h1>
                 <form>
                     <Input
                         type='text'
@@ -107,6 +113,7 @@ const Index: React.FC = () => {
                     />
 
                     <SelectState
+                        loading={isLoadingStates}
                         label='state'
                         name='state'
                         option={states}
@@ -114,6 +121,7 @@ const Index: React.FC = () => {
                     />
 
                     <SelectCity
+                        loading={isLoadingCities}
                         label='city'
                         name='city'
                         isState={userData.state}
@@ -126,13 +134,13 @@ const Index: React.FC = () => {
                         name='occupation'
                         label='occupation'
                         onChange={handleChange}
-                    />  
-
-                    <Button 
-                        name='submit'
-                        type='submit'                        
                     />
-                    
+
+                    <Button
+                        name='submit'
+                        type='submit'
+                    />
+
                 </form>
             </div>
         </ ContainerForm>
