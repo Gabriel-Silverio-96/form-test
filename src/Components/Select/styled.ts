@@ -23,7 +23,7 @@ export const SelectGroup = styled.div`
         border: 2px solid ${Variables.neutraThird};
         
         &:focus {            
-            border: 3px solid ${Variables.colorPrimary};
+            border-color: ${Variables.colorPrimary};
             outline: ${Variables.colorPrimary};
         }
 

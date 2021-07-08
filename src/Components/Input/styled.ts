@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import * as Variables from 'Assets/Styled/Variables';
 
-export const InputGroup = styled.div `
+export const InputGroup = styled.div`
     display: flex;
     flex-direction: column;    
     margin-bottom: 2rem;
@@ -22,7 +22,7 @@ export const InputGroup = styled.div `
         border: 2px solid ${Variables.neutraThird};
         
         &:focus {            
-            border: 3px solid ${Variables.colorPrimary};
+            border-color: ${Variables.colorPrimary};
             outline: ${Variables.colorPrimary};
         }
     }
