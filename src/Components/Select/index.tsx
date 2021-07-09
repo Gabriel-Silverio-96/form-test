@@ -2,7 +2,7 @@ import React, { SelectHTMLAttributes } from 'react';
 import { SelectGroup, Loading } from './styled';
 
 type regiao = {
-    id: string;
+    id: number;
     sigla: string;
     nome: string;
 }

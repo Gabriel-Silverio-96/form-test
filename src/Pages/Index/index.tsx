@@ -9,7 +9,7 @@ import Button from 'Components/Button';
 import { ContainerForm } from './styled';
 
 type regiao = {
-    id: string;
+    id: number;
     sigla: string;
     nome: string;
 }
