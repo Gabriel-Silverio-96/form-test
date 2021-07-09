@@ -8,32 +8,35 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     isState?: string;
     onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     loading?: boolean;
+    errorMessage?: string;
 }
 
-const SelectState: React.FC<SelectProps> = ({ label, name, option, onChange, loading }) => {
+const SelectState: React.FC<SelectProps> = ({ label, name, option, onChange, loading, errorMessage, ...rest }) => {
     return (
-        <SelectGroup>
+        <SelectGroup data-testid='select-group'>
             <label htmlFor={label}>{label}</label>
-            <select name={name} onChange={onChange}>
+            <select name={name} onChange={onChange} {...rest}>
                 {loading && <option>Loading...</option>}
                 {option.map((option: any) => {
-                    return <option key={option.id} value={option.sigla}>{option.sigla}</option>
+                    return <option key={`${option.id}`} value={option.sigla}>{option.sigla}</option>
                 })}
             </select>
+            <span>{errorMessage}</span>
         </SelectGroup>
     );
 }
 
-const SelectCity: React.FC<SelectProps> = ({ label, name, option, isState, onChange, loading }) => {
+const SelectCity: React.FC<SelectProps> = ({ label, name, option, isState, onChange, loading, errorMessage, ...rest }) => {
     return (
-        <SelectGroup>
+        <SelectGroup data-testid='select-group'>
             <label htmlFor={label}>{label}</label>
-            <select name={name} onChange={onChange} disabled={isState === '' ? true : false}>
+            <select name={name} onChange={onChange} disabled={isState === '' ? true : false} {...rest}>
                 {loading && <option>Loading...</option>}
                 {option.map((option: any) => {
-                    return <option key={option.id} value={option.nome}>{option.nome}</option>
+                    return <option key={`${option.id}`} value={option.nome}>{option.nome}</option>
                 })}
             </select>
+            <span>{errorMessage}</span>
         </SelectGroup>
     );
 }

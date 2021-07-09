@@ -11,11 +11,11 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     errorMessage?: string;
 }
 
-const Input: React.FC<InputProps> = ({ type, name, label, onChange, errorMessage }) => {
+const Input: React.FC<InputProps> = ({ type, name, label, onChange, errorMessage, ...rest }) => {
     return (
         <InputGroup>
             <label htmlFor={name}>{label}</label>
-            <input type={type} id={name} name={name} onChange={onChange} />
+            <input type={type} id={name} name={name} onChange={onChange} {...rest}/>
             <span>{errorMessage}</span>
         </InputGroup>
     );

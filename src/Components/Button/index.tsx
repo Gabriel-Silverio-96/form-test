@@ -8,9 +8,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     onClick?: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ type, name, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ type, name, onClick, ...rest }) => {
     return (
-        <ButtonPrimary type={type} onClick={onClick}>{name}</ButtonPrimary>
+        <ButtonPrimary 
+            type={type} 
+            onClick={onClick}
+            {...rest}
+        >
+            {name}
+        </ButtonPrimary>
     );
 }
 
