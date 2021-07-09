@@ -5,3 +5,5 @@ export const neutraSecondary = '#ffffff';
 export const neutraThird = '#cccccc';
 
 export const colorError = '#ed0226';
+
+export const complementaryPrimary = '#cbe1ff';
