@@ -5,6 +5,7 @@ export const SelectGroup = styled.div`
     display: flex;
     flex-direction: column;    
     margin-bottom: 2rem;
+    position: relative;
 
     label {
         font-size: 1rem;
@@ -31,10 +32,22 @@ export const SelectGroup = styled.div`
             background-color: ${Variables.neutraThird};
             cursor: not-allowed;
         }
-    }
+    }    
 
-    & > span {
-        color: ${Variables.colorError};
-        margin-top: 0.2rem;
+    & > span 
+        &:last-child{
+            color: ${Variables.colorError};
+            margin-top: 0.2rem;
     }
+`
+
+export const Loading = styled.span `
+    position: absolute;
+    bottom: -0.3rem;
+    z-index: 1;
+    padding: 1rem;
+    background-color: ${Variables.complementaryPrimary};
+    width: -webkit-fill-available;
+    text-align: center;
+    border-radius: 0.4rem;
 `
