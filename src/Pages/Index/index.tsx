@@ -28,7 +28,7 @@ interface CityProps {
 }
 
 interface UserDataProps {
-    name: string;
+    full_name: string;
     email: string;
     state: string;
     city: string;
@@ -42,7 +42,7 @@ const Index: React.FC = () => {
     const [states, setStates] = useState<StatesProps[]>([]);
 
     const [userData, setUserData] = useState<UserDataProps>({
-        name: '',
+        full_name: '',
         email: '',
         state: '',
         city: '',
@@ -69,7 +69,7 @@ const Index: React.FC = () => {
                     setIsLoadingStates(false)
                 }
             } catch (error) {
-                console.error("Message error: " + error);
+                console.error('Message error: ' + error);
             }
         }
         request()
@@ -86,23 +86,29 @@ const Index: React.FC = () => {
                         setIsLoadingCities(false)
                     }
                 } catch (error) {
-                    console.error("Message error: " + error);
+                    console.error('Message error: ' + error);
                 }
             }
             request()
         }
     }, [userData]);
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        alert(JSON.stringify(userData));
+    }
+
     return (
         <ContainerForm>
             <div>
                 <h1>Register Now</h1>
-                <form>
+                <form onSubmit={handleSubmit} data-testid='form'>
                     <Input
                         type='text'
-                        name='name'
-                        label='name'
+                        name='full_name'
+                        label='full name'
                         onChange={handleChange}
+                        data-testid='input-full-name'
                     />
 
                     <Input
@@ -110,6 +116,7 @@ const Index: React.FC = () => {
                         name='email'
                         label='email'
                         onChange={handleChange}
+                        data-testid='input-email'
                     />
 
                     <SelectState
@@ -118,6 +125,7 @@ const Index: React.FC = () => {
                         name='state'
                         option={states}
                         onChange={handleChange}
+                        data-testid='select-state'
                     />
 
                     <SelectCity
@@ -127,6 +135,7 @@ const Index: React.FC = () => {
                         isState={userData.state}
                         option={cities}
                         onChange={handleChange}
+                        data-testid='select-city'
                     />
 
                     <Input
@@ -134,11 +143,13 @@ const Index: React.FC = () => {
                         name='occupation'
                         label='occupation'
                         onChange={handleChange}
+                        data-testid='input-occupation'
                     />
 
                     <Button
                         name='submit'
                         type='submit'
+                        data-testid='form-button'
                     />
 
                 </form>
