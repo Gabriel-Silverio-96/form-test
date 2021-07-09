@@ -1,23 +1,43 @@
 import React, { SelectHTMLAttributes } from 'react';
-import { SelectGroup } from './styled';
+import { SelectGroup, Loading } from './styled';
 
-interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+type regiao = {
+    id: string;
+    sigla: string;
+    nome: string;
+}
+
+interface StateProps {
+    id: number;
+    sigla: string;
+    nome: string;
+    regiao: regiao;
+}
+
+interface CityProps {
+    id: number;
+    nome: string;
+}
+
+interface SelectProps<T> extends SelectHTMLAttributes<HTMLSelectElement> {
     label: string;
     name: string;
-    option: Array<object>;
+    option: Array<T>;
     isState?: string;
     onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     loading?: boolean;
     errorMessage?: string;
 }
 
-const SelectState: React.FC<SelectProps> = ({ label, name, option, onChange, loading, errorMessage, ...rest }) => {
+const SelectState: React.FC<SelectProps<StateProps>> = ({ label, name, option, onChange, loading, errorMessage, ...rest }) => {
     return (
         <SelectGroup data-testid='select-group'>
             <label htmlFor={label}>{label}</label>
-            <select name={name} onChange={onChange} {...rest}>
-                {loading && <option>Loading...</option>}
-                {option.map((option: any) => {
+            
+            {loading && <Loading>Loading...</Loading>}
+
+            <select name={name} onChange={onChange} {...rest}>                
+                {option.map((option) =>{                      
                     return <option key={`${option.id}`} value={option.sigla}>{option.sigla}</option>
                 })}
             </select>
@@ -26,13 +46,15 @@ const SelectState: React.FC<SelectProps> = ({ label, name, option, onChange, loa
     );
 }
 
-const SelectCity: React.FC<SelectProps> = ({ label, name, option, isState, onChange, loading, errorMessage, ...rest }) => {
+const SelectCity: React.FC<SelectProps<CityProps>> = ({ label, name, option, isState, onChange, loading, errorMessage, ...rest }) => {
     return (
         <SelectGroup data-testid='select-group'>
             <label htmlFor={label}>{label}</label>
+
+            {loading && <Loading>Loading...</Loading>}
+
             <select name={name} onChange={onChange} disabled={isState === '' ? true : false} {...rest}>
-                {loading && <option>Loading...</option>}
-                {option.map((option: any) => {
+                {option.map((option) => {
                     return <option key={`${option.id}`} value={option.nome}>{option.nome}</option>
                 })}
             </select>
