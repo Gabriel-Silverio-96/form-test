@@ -1,8 +1,8 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import Index from 'Pages/Index';
 
+window.alert = jest.fn();
 describe('tests home page', () => {
-
     it('should show form and alert with data user', async () => {
         const { getByTestId } = render(<Index />);
         const form = await waitFor(() => getByTestId('form'));
@@ -48,7 +48,7 @@ describe('tests home page', () => {
         });
         expect(inputName.value).toEqual(testString);
 
-        const formButton = await waitFor(() => getByTestId("form-button")) as HTMLButtonElement;
-        fireEvent.change(formButton);
-    })
+        const formButton = await waitFor(() => getByTestId("form-button")) as HTMLButtonElement;      
+        fireEvent.click(formButton);
+    })    
 })
