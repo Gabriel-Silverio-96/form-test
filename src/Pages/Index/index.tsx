@@ -14,11 +14,10 @@ type regiao = {
     nome: string;
 }
 
-interface StatesProps {
+interface StateProps {
     id: number;
     sigla: string;
     nome: string;
-    city: string;
     regiao: regiao;
 }
 
@@ -39,7 +38,7 @@ const Index: React.FC = () => {
     const [isLoadingStates, setIsLoadingStates] = useState<boolean>(true);
     const [isLoadingCities, setIsLoadingCities] = useState<boolean>(false);
     const [cities, setCities] = useState<CityProps[]>([]);
-    const [states, setStates] = useState<StatesProps[]>([]);
+    const [states, setStates] = useState<StateProps[]>([]);
 
     const [userData, setUserData] = useState<UserDataProps>({
         full_name: '',
@@ -61,7 +60,6 @@ const Index: React.FC = () => {
 
     useEffect(() => {
         const request = async () => {
-            setIsLoadingStates(true)
             try {
                 const { data, status } = await api.get('localidades/estados');
                 if (status === 200) {
@@ -91,7 +89,7 @@ const Index: React.FC = () => {
             }
             request()
         }
-    }, [userData]);
+    }, [userData.state]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
