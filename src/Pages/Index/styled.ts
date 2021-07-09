@@ -6,9 +6,11 @@ export const ContainerForm = styled.div`
     flex-direction: column;
     margin: auto;
     height: 100vh;
+    padding: 1rem;
 
     > div {
-        width: 30rem;
+        max-width: 30rem;
+        width: 100%;
         margin: auto;
 
         h1 {
@@ -23,5 +25,10 @@ export const ContainerForm = styled.div`
 
     button {
         margin-left: auto;
+        transition: 0.3s;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 `
