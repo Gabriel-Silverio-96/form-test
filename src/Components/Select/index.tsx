@@ -29,7 +29,7 @@ interface SelectProps<T> extends SelectHTMLAttributes<HTMLSelectElement> {
     errorMessage?: string;
 }
 
-const SelectState: React.FC<SelectProps<StateProps>> = ({ label, name, option, onChange, loading, errorMessage, ...rest }) => {
+const SelectState: React.FC<SelectProps<StateProps>> = React.memo(({ label, name, option, onChange, loading, errorMessage, ...rest }) => {
     return (
         <SelectGroup data-testid='select-group'>
             <label htmlFor={label}>{label}</label>
@@ -43,10 +43,10 @@ const SelectState: React.FC<SelectProps<StateProps>> = ({ label, name, option, o
             </select>
             <span>{errorMessage}</span>
         </SelectGroup>
-    );
-}
+    )
+});
 
-const SelectCity: React.FC<SelectProps<CityProps>> = ({ label, name, option, isState, onChange, loading, errorMessage, ...rest }) => {
+const SelectCity: React.FC<SelectProps<CityProps>> = React.memo(({ label, name, option, isState, onChange, loading, errorMessage, ...rest }) => {
     return (
         <SelectGroup data-testid='select-group'>
             <label htmlFor={label}>{label}</label>
@@ -60,7 +60,7 @@ const SelectCity: React.FC<SelectProps<CityProps>> = ({ label, name, option, isS
             </select>
             <span>{errorMessage}</span>
         </SelectGroup>
-    );
-}
+    )
+});
 
 export { SelectState, SelectCity };

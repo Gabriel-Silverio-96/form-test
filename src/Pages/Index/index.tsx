@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import api from 'Services/api-ibge';
 
 //Components
@@ -48,15 +48,17 @@ const Index: React.FC = () => {
         occupation: '',
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const name = e.target.name;
         const value = e.target.value;
 
-        setUserData({
-            ...userData,
-            [name]: value
+        setUserData((state) => {
+            return {
+                ...state,
+                [name]: value
+            }
         })
-    };
+    }, []);
 
     useEffect(() => {
         const request = async () => {
