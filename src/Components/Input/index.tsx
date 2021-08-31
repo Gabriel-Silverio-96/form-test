@@ -7,15 +7,26 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     type: typeInput;
     name: string;
     label: string;
-    onChange?: (e:React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     errorMessage?: string;
 }
 
 const Input: React.FC<InputProps> = React.memo(({ type, name, label, onChange, errorMessage, ...rest }) => {
     return (
         <InputGroup>
-            <label htmlFor={name}>{label}</label>
-            <input type={type} id={name} name={name} onChange={onChange} {...rest}/>
+            <label
+                htmlFor={name}
+                data-testid="label-input"
+            >
+                {label}
+            </label>
+            <input 
+                type={type} 
+                id={name} 
+                name={name} 
+                onChange={onChange} {...rest} 
+                data-testid="input"
+            />
             <span>{errorMessage}</span>
         </InputGroup>
     )

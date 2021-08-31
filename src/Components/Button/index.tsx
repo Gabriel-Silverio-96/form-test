@@ -1,9 +1,9 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes } from "react";
 
-import { ButtonPrimary } from './styled';
+import { ButtonPrimary } from "./styled";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    type: 'submit' | 'reset' | 'button';
+    type: "submit" | "reset" | "button";
     name: string;
     onClick?: () => void;
 }

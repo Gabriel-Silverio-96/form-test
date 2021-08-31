@@ -4,13 +4,15 @@
 
 ## 📝 About 
 
-Form test using principle TDD concepts
+Form test using msw
 
 ## 💻 Stack
 
 * [ReactJS](https://pt-br.reactjs.org/)
 * [TypeScript](typescriptlang.org)
 * [Testing library](https://testing-library.com/docs)
+* [MSW](https://mswjs.io/)
+* [ts-jest](https://www.npmjs.com/package/ts-jest)
 * [Styled components](https://styled-components.com/docs)
 * [Axios](https://www.npmjs.com/package/axios)
 * [API IBGE](https://servicodados.ibge.gov.br/api/docs/localidades)

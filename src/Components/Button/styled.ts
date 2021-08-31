@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import * as Variables from 'Assets/Styled/Variables';
+import styled from "styled-components";
+import * as Variables from "Assets/Styled/Variables";
 
 export const ButtonPrimary = styled.button `
     padding: 0.7rem 0.9rem;

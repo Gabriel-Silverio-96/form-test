@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import * as Variables from 'Assets/Styled/Variables';
+import styled from "styled-components";
+import * as Variables from "Assets/Styled/Variables";
 
 export const InputGroup = styled.div`
     display: flex;

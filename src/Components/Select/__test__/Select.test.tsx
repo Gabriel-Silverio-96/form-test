@@ -1,45 +1,101 @@
-import { render, waitFor } from "@testing-library/react";
-import { SelectState, SelectCity } from 'Components/Select';
+import { act, fireEvent, render, waitFor } from "@testing-library/react";
+import { SelectState, SelectCity } from "Components/Select";
 
-describe('should show select render', () => {
+describe("should show select render with props", () => {
+   const onChange = jest.fn();
 
-   it('select state', async () => {
-      const { getByTestId } = render(<SelectState label='test' name='test' option={[{
+   const optionSelectState = [
+      {
          id: 1,
-         nome: 'testing nome',
-         sigla: 'testing sigla',
+         nome: "testing name",
+         sigla: "testing initials",
          regiao: {
             id: 1,
-            nome: 'testing nome',
-            sigla: 'testing sigla'
+            nome: "testing name",
+            sigla: "testing initials"
          }
-      }]} />);
+      }
+   ]
 
-      const selectGroup = await waitFor(() => getByTestId('select-group'));
-      const label = selectGroup.querySelector('label');
-      const select = selectGroup.querySelector('select');
-      const span = selectGroup.querySelector('span');
+   const optionSelectCity = [{
+      id: 1,
+      nome: "testing city"
+   }]
 
-      expect(selectGroup).toBeInTheDocument();
-      expect(label).toBeInTheDocument();
-      expect(select).toBeInTheDocument();
-      expect(span).toBeInTheDocument();
+   test("select state", async () => {
+      const onChange = jest.fn();
+      
+      const { getByTestId, getAllByTestId } = render(<SelectState
+         label="test" name="test" option={optionSelectState}
+         onChange={onChange}
+      />);
+
+      const labelNode = await waitFor(() => getByTestId("label-select-state")) as HTMLLabelElement;
+      expect(labelNode).toHaveTextContent("test");
+
+      const selectStateNode = await waitFor(() => getByTestId("select-state")) as HTMLSelectElement;
+      expect(selectStateNode).toHaveAttribute("name", "test");
+      act(() => {
+         fireEvent.change(selectStateNode, {
+            target: {
+               value: "testing initials"
+            }
+         })
+      })
+
+      expect(selectStateNode).toHaveValue("testing initials");
+
+      const optionStateNode = await waitFor(() => getAllByTestId("option-state"));
+      const onlyTheFirtsOptionStateNode = optionStateNode[0] as HTMLOptionElement;
+      expect(onlyTheFirtsOptionStateNode.textContent).toEqual("testing initials");
+   })  
+   
+   test("select city", async () => {     
+      const { getByTestId, getAllByTestId } = render(<SelectCity
+         label="test" name="test" option={optionSelectCity}
+         onChange={onChange}
+      />);
+
+      const labelNode = await waitFor(() => getByTestId("label-select-city")) as HTMLLabelElement;
+      expect(labelNode).toHaveTextContent("test");
+
+      const selectCityNode = await waitFor(() => getByTestId("select-city")) as HTMLSelectElement;
+      expect(selectCityNode).toHaveAttribute("name", "test");
+      act(() => {
+         fireEvent.change(selectCityNode, {
+            target: {
+               value: "testing city"
+            }
+         })
+      })
+      expect(selectCityNode).toHaveValue("testing city");
+
+      const optionCityNode = await waitFor(() => getAllByTestId("option-city"));
+      const onlyTheFirtsOptionCityNode = optionCityNode[0] as HTMLOptionElement;
+      expect(onlyTheFirtsOptionCityNode.textContent).toEqual("testing city");
+   })   
+
+   test("select city is loading", async () => {     
+      const isLoading = true;
+      const { queryByText } = render(<SelectCity
+         label="test" name="test" option={optionSelectCity}
+         loading={isLoading}
+         onChange={onChange}
+      />);
+
+      const isLoadingText = queryByText("Loading...");
+      expect(isLoadingText).toBeInTheDocument();
    })
 
-   it('select city', async () => {
-      const { getByTestId } = render(<SelectCity label='test' name='test' option={[{
-         id: 1,
-         nome: 'testing nome'
-      }]} />);
+   test("select city is disabled", async () => {     
+      const isDisabled = "";
+      const { getByTestId } = render(<SelectCity
+         label="test" name="test" option={optionSelectCity}
+         isState={isDisabled}
+         onChange={onChange}
+      />);
 
-      const selectGroup = await waitFor(() => getByTestId('select-group'));
-      const label = selectGroup.querySelector('label');
-      const select = selectGroup.querySelector('select');
-      const span = selectGroup.querySelector('span');
-
-      expect(selectGroup).toBeInTheDocument();
-      expect(label).toBeInTheDocument();
-      expect(select).toBeInTheDocument();
-      expect(span).toBeInTheDocument();
+      const selectCityNode = await waitFor(() => getByTestId("select-city")) as HTMLSelectElement;
+      expect(selectCityNode).toHaveAttribute("disabled", "");
    })
 })

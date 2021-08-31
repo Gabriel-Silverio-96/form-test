@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import api from 'Services/api-ibge';
+import React, { useCallback, useEffect, useState } from "react";
+import api from "Services/api-ibge";
 
 //Components
-import Input from 'Components/Input';
-import { SelectState, SelectCity } from 'Components/Select';
-import Button from 'Components/Button';
+import Input from "Components/Input";
+import { SelectState, SelectCity } from "Components/Select";
+import Button from "Components/Button";
 
-import { ContainerForm } from './styled';
+import { ContainerForm } from "./styled";
 
 type regiao = {
     id: number;
@@ -41,17 +41,17 @@ const Index: React.FC = () => {
     const [states, setStates] = useState<StateProps[]>([]);
 
     const [userData, setUserData] = useState<UserDataProps>({
-        full_name: '',
-        email: '',
-        state: '',
-        city: '',
-        occupation: '',
+        full_name: "",
+        email: "",
+        state: "RO",
+        city: "",
+        occupation: "",
     });
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const name = e.target.name;
         const value = e.target.value;
-
+       
         setUserData((state) => {
             return {
                 ...state,
@@ -61,22 +61,22 @@ const Index: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const request = async () => {
+        const request = async () => {            
             try {
-                const { data, status } = await api.get('localidades/estados');
+                const { data, status } = await api.get("localidades/estados");
                 if (status === 200) {
                     setStates(data)
-                    setIsLoadingStates(false)
+                    setIsLoadingStates(false)                    
                 }
             } catch (error) {
-                console.error('Message error: ' + error);
+                console.error("Message error: " + error);
             }
         }
         request()
     }, []);
 
     useEffect(() => {
-        if (userData.state !== '') {
+        if (userData.state !== "") {
             const request = async () => {
                 setIsLoadingCities(true)
                 try {
@@ -86,12 +86,23 @@ const Index: React.FC = () => {
                         setIsLoadingCities(false)
                     }
                 } catch (error) {
-                    console.error('Message error: ' + error);
+                    console.error("Message error: " + error);
                 }
             }
             request()
         }
     }, [userData.state]);
+
+    useEffect(() => {
+        if(userData.state !== "RO") {
+            setUserData((state) => {
+                return {
+                    ...state,
+                    city: ""
+                }
+            })
+        }
+    }, [userData.state])
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -102,54 +113,49 @@ const Index: React.FC = () => {
         <ContainerForm>
             <div>
                 <h1>Register Now</h1>
-                <form onSubmit={handleSubmit} data-testid='form'>
+                <form onSubmit={handleSubmit} data-testid="form">
                     <Input
-                        type='text'
-                        name='full_name'
-                        label='full name'
+                        type="text"
+                        name="full_name"
+                        label="full name"
                         onChange={handleChange}
-                        data-testid='input-full-name'
                     />
 
                     <Input
-                        type='email'
-                        name='email'
-                        label='email'
+                        type="email"
+                        name="email"
+                        label="email"
                         onChange={handleChange}
-                        data-testid='input-email'
                     />
 
                     <SelectState
                         loading={isLoadingStates}
-                        label='state'
-                        name='state'
+                        label="state"
+                        name="state"
                         option={states}
                         onChange={handleChange}
-                        data-testid='select-state'
                     />
 
                     <SelectCity
                         loading={isLoadingCities}
-                        label='city'
-                        name='city'
+                        label="city"
+                        name="city"
                         isState={userData.state}
                         option={cities}
                         onChange={handleChange}
-                        data-testid='select-city'
                     />
 
                     <Input
-                        type='text'
-                        name='occupation'
-                        label='occupation'
+                        type="text"
+                        name="occupation"
+                        label="occupation"
                         onChange={handleChange}
-                        data-testid='input-occupation'
                     />
 
                     <Button
-                        name='submit'
-                        type='submit'
-                        data-testid='form-button'
+                        name="submit"
+                        type="submit"
+                        data-testid="form-button"
                     />
 
                 </form>

@@ -1,5 +1,5 @@
-import React, { SelectHTMLAttributes } from 'react';
-import { SelectGroup, Loading } from './styled';
+import React, { SelectHTMLAttributes } from "react";
+import { SelectGroup, Loading } from "./styled";
 
 type regiao = {
     id: number;
@@ -29,16 +29,21 @@ interface SelectProps<T> extends SelectHTMLAttributes<HTMLSelectElement> {
     errorMessage?: string;
 }
 
-const SelectState: React.FC<SelectProps<StateProps>> = React.memo(({ label, name, option, onChange, loading, errorMessage, ...rest }) => {
+const SelectState: React.FC<SelectProps<StateProps>> = React.memo(({ label, name, option, onChange, loading, errorMessage }) => {
     return (
-        <SelectGroup data-testid='select-group'>
-            <label htmlFor={label}>{label}</label>
-            
+        <SelectGroup>
+            <label
+                htmlFor={label}
+                data-testid="label-select-state"
+            >
+                {label}
+            </label>
+
             {loading && <Loading>Loading...</Loading>}
 
-            <select name={name} onChange={onChange} {...rest}>                
-                {option.map((option) =>{                      
-                    return <option key={`${option.id}`} value={option.sigla}>{option.sigla}</option>
+            <select name={name} onChange={onChange} data-testid="select-state">
+                {option.map((option) => {
+                    return <option data-testid="option-state" key={`${option.id}`} value={option.sigla}>{option.sigla}</option>
                 })}
             </select>
             <span>{errorMessage}</span>
@@ -46,16 +51,22 @@ const SelectState: React.FC<SelectProps<StateProps>> = React.memo(({ label, name
     )
 });
 
-const SelectCity: React.FC<SelectProps<CityProps>> = React.memo(({ label, name, option, isState, onChange, loading, errorMessage, ...rest }) => {
+const SelectCity: React.FC<SelectProps<CityProps>> = React.memo(({ label, name, option, isState, onChange, loading, errorMessage }) => {
     return (
-        <SelectGroup data-testid='select-group'>
-            <label htmlFor={label}>{label}</label>
+        <SelectGroup>
+            <label
+                htmlFor={label}
+                data-testid="label-select-city"
+            >
+                {label}
+            </label>
 
             {loading && <Loading>Loading...</Loading>}
 
-            <select name={name} onChange={onChange} disabled={isState === '' ? true : false} {...rest}>
+            <select name={name} onChange={onChange} disabled={isState === "" ? true : false} data-testid="select-city">
+                <option></option>
                 {option.map((option) => {
-                    return <option key={`${option.id}`} value={option.nome}>{option.nome}</option>
+                    return <option data-testid="option-city" key={`${option.id}`} value={option.nome}>{option.nome}</option>
                 })}
             </select>
             <span>{errorMessage}</span>

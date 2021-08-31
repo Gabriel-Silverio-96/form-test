@@ -1,5 +1,4 @@
 import styled from "styled-components";
-//import * as Variables from 'Assets/Styled/Variables';
 
 export const ContainerForm = styled.div`
     display: flex;
